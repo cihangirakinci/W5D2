@@ -35,19 +35,22 @@ end
 def larger_than_russia
   # List each country name where the population is larger than 'Russia'.
   execute(<<-SQL)
-  SELECT 
+  SELECT
     name
   FROM
     countries
   WHERE
-    population > (
-      SELECT 
-        population
-      FROM
-        countries 
-      WHERE
-        name = 'Russia'
-    );
+    population >(
+    SELECT
+      population
+    FROM
+      countries
+    WHERE
+      name = 'Russia'
+    )
+
+
+
   SQL
 end
 
@@ -127,17 +130,11 @@ def sparse_continents
   # Hint: Sometimes rewording the problem can help you see the solution.
   execute(<<-SQL)
   SELECT
-    name, continent, population
+
   FROM
-    countries
+
   WHERE
-    continent NOT IN (
-      SELECT DISTINCT
-        continent
-      FROM
-        countries
-      WHERE
-        population > 25000000
+
     );
   SQL
 end
